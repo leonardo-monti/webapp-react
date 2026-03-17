@@ -15,27 +15,36 @@ useEffect(()=>{
 
 if(!movie) return <p>Loading...</p>
 
-    return (
+      return (
+   <div className="container mt-4">
+  <div className="card mx-auto" style={{ maxWidth: "300px" }}>
+    <img
+      src={`http://localhost:3000/images/${movie.image}`}
+      className="card-img-top"
+      alt={movie.title}
+    />
+            <div className="card-body">
+              <h2 className="card-title">{movie.title}</h2>
+              <p><strong>Genre:</strong> {movie.genre}</p>
+              <p><strong>Director:</strong> {movie.director}</p>
+              <p><strong>Release year:</strong> {movie.release_year}</p>
+              <p><strong>Abstract:</strong> {movie.abstract}</p>
+            </div>
+          </div>
+
+          <h4>Reviews</h4>
+          {movie.reviews.map((review) => (
+            <div key={review.id} className="card mb-2">
+              <div className="card-body">
+                <p><strong>{review.name}</strong> - {review.vote}/5</p>
+                <p>{review.text}</p>
+              </div>
+            </div>
+          ))}
+
+        </div>
     
-    <div>
-        <h1>{movie.title}</h1>
-        <img src={`http://localhost:3000/images/${movie.image}`} alt={movie.title} />
-        <p>Director: {movie.director}</p>
-        <p>Genre: {movie.genre}</p>
-        <p>Release year: {movie.release_year}</p>
-        <p>Abstract: {movie.abstract}</p>
-   
-
-{movie.reviews.map(review => (
-  <div key={review.id}>
-    <p>{review.name} - {review.vote}/5</p>
-    <p>{review.text}</p>
-  </div>
-))}
-
- </div>
-
-    )
+  )
 }
 
 export default MovieDetail
