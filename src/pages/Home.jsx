@@ -1,5 +1,6 @@
 import axios from "axios"
 import { useState,useEffect } from "react"
+import { Link } from "react-router-dom"
 
 function Home(){
 
@@ -21,11 +22,13 @@ return (
 
 {movies.map((movie) => (
   <div key={movie.id}>
-    <img
-      src={`http://localhost:3000/images/${movie.image}`}
-      alt={movie.title}
-    />
-    <h2>{movie.title}</h2>
+    <Link to={`/movies/${movie.id}`}>
+      <img
+        src={`http://localhost:3000/images/${movie.image}`}
+        alt={movie.title}
+      />
+      <h2>{movie.title}</h2>
+    </Link>
   </div>
 ))}
 
