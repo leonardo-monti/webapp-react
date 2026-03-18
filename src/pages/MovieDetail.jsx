@@ -1,6 +1,7 @@
 import axios from "axios"
 import { useState,useEffect } from "react"
 import { useParams } from "react-router-dom"
+import Rating from "../components/Rating"
 
 function MovieDetail(){
 
@@ -36,7 +37,7 @@ if(!movie) return <p>Loading...</p>
           {movie.reviews.map((review) => (
             <div key={review.id} className="card mb-2">
               <div className="card-body">
-                <p><strong>{review.name}</strong> - {review.vote}/5</p>
+                <p><strong>{review.name}</strong> <Rating vote={review.vote} /></p>
                 <p>{review.text}</p>
               </div>
             </div>
