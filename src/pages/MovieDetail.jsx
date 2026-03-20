@@ -3,6 +3,8 @@ import { useState,useEffect } from "react"
 import { useParams } from "react-router-dom"
 import Rating from "../components/Rating"
 import ReviewForm from "../components/ReviewForm"
+import { useLoaderContext } from "../context/LoaderContext"
+
 
 
 function MovieDetail(){
@@ -10,11 +12,19 @@ function MovieDetail(){
 const {id} = useParams()
 const [movie,setMovie]=useState(null)
 const [showForm, setShowForm]=useState(false)
+const {setLoading}=useLoaderContext()
 
 useEffect(()=>{
+  setLoading(true)
     axios.get(`http://localhost:3000/movies/${id}`)
-    .then(res=>setMovie(res.data.movie))
-    .catch(err=>console.error(err))
+    .then(res=>{
+      setMovie(res.data.movie)
+      setLoading(false)
+    })
+    .catch(err=>{
+      console.error(err)
+      setLoading(false)
+    })
 }, [id])
 
 if(!movie) return <p>Loading...</p>

@@ -1,18 +1,24 @@
 import axios from "axios"
 import { useState,useEffect } from "react"
 import { Link } from "react-router-dom"
+import { useLoaderContext } from "../context/LoaderContext"
+
 
 function Home(){
 
 const [movies,setMovies]=useState([])
+const {setLoading} = useLoaderContext()
 
 useEffect(()=>{
+  setLoading(true)
     axios.get("http://localhost:3000/movies")
     .then(res=>{
         setMovies(res.data.movies)
+        setLoading(false)
     })
     .catch(err=>{
         console.error(err)
+        setLoading(false)
     })
 },[])
 
